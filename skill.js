@@ -17,6 +17,15 @@ export class Bonk extends Skill {
         enemy.health -= this.player.damage;
     }
 }
+export class FireBall extends Skill {
+    constructor(player){
+        super(player);
+        this.name = "fball";
+    }
+    attack(enemy){
+        enemy.health -= this.player.damage*2;
+    }
+}
 export class Escape extends Skill {
     constructor(player){
         super(player);

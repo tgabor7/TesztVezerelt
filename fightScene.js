@@ -118,8 +118,14 @@ export class FightScene extends State {
             if(this.enemy.respawn){
                 this.enemy.health = this.enemy.max_health;
             }
-            this.player.experience += this.enemy.experience;
+            
             StateManager.pop();
+            this.player.experience = +this.player.experience + +this.enemy.experience;
+            if(this.player.experience >= this.player.required_experience){
+                this.player.required_experience = this.player.required_experience * 2.0;
+                this.player.lvl = +this.player.lvl + +1;
+                new Modal("LVL UP||" + (this.player.lvl - 1).toString() + "  ->  " + this.player.lvl);
+            }
             new Modal("Gained " + this.enemy.experience + " experience| |Press e to continue");
         }
         

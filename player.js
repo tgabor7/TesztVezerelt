@@ -14,7 +14,9 @@ export class Player {
 		this.health = 100;
 		this.damage = 10;
 		this.experience = 0;
-
+		this.required_experience = 10;
+		this.lvl = 1;
+		this.class = 'None';
 		this.skills = [];
 
 		this.canvas_width = document.getElementById("canvas").width / 2;

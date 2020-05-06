@@ -23,6 +23,12 @@ export class FirstScene extends State {
         this.map = new Map(coords);
         this.camera = new Vector2D();
         this.dialog = dialog;
+        if(this.player.class != 'None'){
+            this.map.tiles[6][9] = 2;
+            return;
+        }
+        this.npcs.splice(0,this.npcs.length);
+
         this.npcs.push(new MageChoice(128,128,dialog, this.map, npcs));
         this.npcs.push(new WarriorChoice(256,128,dialog, this.map, npcs));
         this.npcs.push(new TankChoice(384,128,dialog, this.map, npcs));
@@ -34,7 +40,6 @@ export class FirstScene extends State {
         ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         ajax.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200){
-                alert(this.responseText);
             }
         }
         ajax.send("name=" + this.player.name + '&exp=' + this.player.experience + '&dmg=' + this.player.damage +
@@ -77,7 +82,8 @@ export class FirstScene extends State {
         if(this.player.position.x == 576 && this.player.position.y == 384){
             StateManager.pop();
             this.player.setPosition(704,256);
-            new MainState(this.player,this.npcs,this.dialog);
+            let m = new MainState(this.player,this.npcs,this.dialog);
+            m.init();
         }
         if(this.isKeyDown('w')){
             this.player.move(0);

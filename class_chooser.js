@@ -1,4 +1,5 @@
 import { NPC } from "./npc.js";
+import { FireBall } from "./skill.js";
 
 
 export class MageChoice extends NPC {
@@ -20,8 +21,10 @@ export class MageChoice extends NPC {
         }
         this.dialog.drawName(context, "Staff");
         this.dialog.drawText(context, "You are a MAGE now!");     
-        
-
+        player.max_health = 50;
+        player.health = 50;
+        player.damage = 15;
+        player.skills.push(new FireBall(player));
     }
 }
 export class WarriorChoice extends NPC {
@@ -66,6 +69,8 @@ export class TankChoice extends NPC {
         }
         this.dialog.drawName(context, "Shield");
         this.dialog.drawText(context, "You are a TANK now!");
-        
+        player.max_health = 200;
+        player.health = 200;
+        player.damage = 5;
     }
 }

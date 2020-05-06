@@ -54,9 +54,11 @@ export class MenuState extends State {
             ajax.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     if(this.responseText == "ok"){
-                        p.name = this.text;
-                        p.damage = 1000;
-                        if(t.length > 0) new FirstScene(p,n,d);
+                        p.name = t;
+                        p.damage = 10;
+                        if(t.length > 0){
+                           new FirstScene(p,n,d);
+                        } 
                     }else{
                         var gajax = new XMLHttpRequest();
                         gajax.open("POST", "db_get.php", true);
@@ -66,13 +68,19 @@ export class MenuState extends State {
                                 let params = this.responseText.split(" ");
                                 let pl = new Player();
                                 pl.experience = params[0];
+                                let tmp = pl.experience;
+                                let lvl = 0;
+                                while(tmp >= 0){
+                                    lvl++;
+                                    tmp = tmp - 10*lvl;
+                                }
+                                pl.lvl = lvl;
+                                pl.required_experience = 10*(2**(lvl-1));
                                 pl.damage = params[1];
                                 pl.name = t;
                                 pl.setPosition(params[3]*64,params[4]*64);
-                              
-
-                                alert(pl.position);
-                                alert(params[2]);
+                                pl.class = params[5];
+                                
                                 switch(params[2]){
                                     case("2"):
                                         new FirstScene(pl,n,d);
